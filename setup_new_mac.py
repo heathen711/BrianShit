@@ -51,8 +51,6 @@ def main():
 
     try:
         make_user("Teacher", "Teacher", "T3@ch3r2013", True)
-        if "F1" in run_and_check("hostname"):
-            make_user("tartan", "tartan", "beyonce*")
 
         commands = [
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "\
@@ -63,8 +61,17 @@ def main():
             "installer -pkg /Volumes/labs/office.pkg -target /"
             "installer -pkg /Volumes/labs/office_licence.pkg -target /"
             "installer -pkg /Volumes/labs/mau.pkg -target /"
+            "cp '/Volumes/labs/Google Chrome.app' /Applications/"
         ]
         for command in commands:
             sudo_command(command)
+
+        if "F1" in run_and_check("hostname"):
+            make_user("tartan", "tartan", "beyonce*")
+            commands = [
+                "cp '/Volumes/labs/FireFox.app' /Applications/"
+            ]
+            for command in commands:
+                sudo_command(command)
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
