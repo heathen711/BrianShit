@@ -60,6 +60,9 @@ def main():
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "\
                 "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "\
                 "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher"
+            "installer -pkg /Volumes/labs/office.pkg -target /"
+            "installer -pkg /Volumes/labs/office_licence.pkg -target /"
+            "installer -pkg /Volumes/labs/mau.pkg -target /"
         ]
         for command in commands:
             sudo_command(command)
