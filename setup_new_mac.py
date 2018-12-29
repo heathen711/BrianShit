@@ -69,7 +69,7 @@ def main():
         if "F1" in run_and_check("hostname"):
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp '/Volumes/labs/FireFox.app' /Applications/"
+                "cp '/Volumes/labs/Firefox.app' /Applications/"
             ]
             for command in commands:
                 sudo_command(command)
