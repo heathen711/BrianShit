@@ -119,6 +119,22 @@ def main():
             make_user("tartan", "tartan", "beyonce*")
             commands = [
                 "cp '/Volumes/labs/Firefox.app' /Applications/",
+
+                # Copy over all user icons
+                "cp /Volumes/labs/F1_icons /Library/User Pictures/",
+
+                # Remove JPEGPhoto and Picture args then set to new icon
+                "dscl . -delete /Users/admin JPEGPhoto",
+                "dscl . -delete /Users/admin Picture",
+                "dscl . -create /Users/admin Picture '/Library/User Pictures/F1_icons/admin.jpg",
+
+                "dscl . -delete /Users/Teacher JPEGPhoto",
+                "dscl . -delete /Users/Teacher Picture",
+                "dscl . -create /Users/Teacher Picture '/Library/User Pictures/F1_icons/Teacher.jpg",
+
+                "dscl . -delete /Users/tartan JPEGPhoto",
+                "dscl . -delete /Users/tartan Picture",
+                "dscl . -create /Users/tartan Picture '/Library/User Pictures/F1_icons/tartan.jpg",
             ]
             for command in commands:
                 sudo_command(command)
