@@ -107,6 +107,7 @@ def main():
 
             # Install MS updater
             "installer -pkg /Volumes/labs/mau.pkg -target /",
+            "open '/Library/Application Support/Mircosoft/MAU2.0/Microsoft AutoUpdate.app'",
 
             # Copy Chrome
             "cp '/Volumes/labs/Google Chrome.app' /Applications/",
