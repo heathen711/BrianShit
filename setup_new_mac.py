@@ -112,6 +112,10 @@ def main():
             copy_and_install("/Volumes/labs/maya.pkg")
             copy_and_install("/Volumes/labs/mudbox.pkg")
 
+        if get_lab_name() == "D2":
+            sudo_command("cp '/Volumes/labs/Audacity.app' /Applications/",)
+            sudo_command("cp '/Volumes/labs/MuseScore 3.app' /Applications/",)
+
         install_adobe()
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
