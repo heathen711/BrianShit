@@ -93,6 +93,8 @@ def main():
             "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
             "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
             "installer -pkg /Volumes/labs/office.pkg -target /",
+            "rm -rf '/Applications/Mircosoft OneNote.app'",
+            "rm -rf '/Applications/Mircosoft Outlook.app'",
             "installer -pkg /Volumes/labs/office_licence.pkg -target /",
             "installer -pkg /Volumes/labs/mau.pkg -target /",
             "cp '/Volumes/labs/Google Chrome.app' /Applications/",
