@@ -132,6 +132,8 @@ def main():
             sudo_command("cp '/Volumes/labs/MuseScore 3.app' /Applications/")
 
         install_adobe()
+
+        sudo_command("touch /var/db/.BrianSetupDone")
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
 
