@@ -6,6 +6,7 @@ import random
 import shlex
 import subprocess
 
+
 def run_and_check(command):
     print "Executing: {}".format(command)
     result = subprocess.check_output(shlex.split(command))
@@ -17,21 +18,36 @@ def sudo_command(command):
     return run_and_check("SUDO_ASKPASS=/tmp/ask_pass.sh; sudo -A {}".format(command))
 
 
-def install_adobe():
+def get_lab_name():
     hostname = run_and_check("hostname")
-    lab_name = hostname.split("-")[0]
-    if lab_name in ["D2"]:
-        return
+    return hostname.split("-")[0]
 
-    path = "/Volumes/lab/{lab_name}/build/{lab_name}_install.pkg".format(lab_name=lab_name)
 
+def copy_and_install(path):
     sudo_command("cp {path} /tmp/".format(path=path))
     sudo_command(
         "installer -pkg {} -target /".format(
             os.path.join("/tmp", os.path.basename(path))
         )
     )
+    sudo_command("rm {}".format(os.path.join("/tmp", os.path.basename(path))))
 
+
+def install_adobe():
+    lab_name = get_lab_name()
+    if lab_name in ["D2"]:
+        return
+
+    path = "/Volumes/labs/{lab_name}/".format(lab_name=lab_name)
+    sudo_command("cp {path} /tmp/".format(path=path))
+
+    local_pkg = os.path.join("/tmp", "build/{lab_name}_install.pkg".format(lab_name))
+    sudo_command(
+        "installer -pkg {} -target /".format(
+            local_pkg
+        )
+    )
+    sudo_command("rm {}".format(os.path.join("/tmp", os.path.basename(path))))
 
 
 def make_user(username, real_name, password, admin=False):
@@ -71,26 +87,30 @@ def main():
         make_user("Teacher", "Teacher", "T3@ch3r2013", True)
 
         commands = [
-            "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "\
-                "-activate -configure -allowAccessFor -specifiedUsers"
-            "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "\
-                "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "\
-                "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher"
-            "installer -pkg /Volumes/labs/office.pkg -target /"
-            "installer -pkg /Volumes/labs/office_licence.pkg -target /"
-            "installer -pkg /Volumes/labs/mau.pkg -target /"
-            "cp '/Volumes/labs/Google Chrome.app' /Applications/"
+            "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
+            "-activate -configure -allowAccessFor -specifiedUsers",
+            "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
+            "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
+            "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
+            "installer -pkg /Volumes/labs/office.pkg -target /",
+            "installer -pkg /Volumes/labs/office_licence.pkg -target /",
+            "installer -pkg /Volumes/labs/mau.pkg -target /",
+            "cp '/Volumes/labs/Google Chrome.app' /Applications/",
         ]
         for command in commands:
             sudo_command(command)
 
-        if "F1" in run_and_check("hostname"):
+        if get_lab_name() == "F1":
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp '/Volumes/labs/Firefox.app' /Applications/"
+                "cp '/Volumes/labs/Firefox.app' /Applications/",
             ]
             for command in commands:
                 sudo_command(command)
+
+        if get_lab_name() == "F3":
+            copy_and_install("/Volumes/labs/maya.pkg")
+            copy_and_install("/Volumes/labs/mudbox.pkg")
 
         install_adobe()
     finally:
