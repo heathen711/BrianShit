@@ -17,7 +17,7 @@ def sudo_command(command):
     return run_and_check("SUDO_ASKPASS=/tmp/ask_pass.sh; sudo -A {}".format(command))
 
 
-def run_adobe():
+def install_adobe():
     hostname = run_and_check("hostname")
     lab_name = hostname.split("-")[0]
     if lab_name in ["D2"]:
@@ -91,5 +91,7 @@ def main():
             ]
             for command in commands:
                 sudo_command(command)
+
+        install_adobe()
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
