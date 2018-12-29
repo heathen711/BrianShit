@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import random
 import shlex
 import subprocess
@@ -14,6 +15,23 @@ def run_and_check(command):
 
 def sudo_command(command):
     return run_and_check("SUDO_ASKPASS=/tmp/ask_pass.sh; sudo -A {}".format(command))
+
+
+def run_adobe():
+    hostname = run_and_check("hostname")
+    lab_name = hostname.split("-")[0]
+    if lab_name in ["D2"]:
+        return
+
+    path = "/Volumes/lab/{lab_name}/build/{lab_name}_install.pkg".format(lab_name=lab_name)
+
+    sudo_command("cp {path} /tmp/".format(path=path))
+    sudo_command(
+        "installer -pkg {} -target /".format(
+            os.path.join("/tmp", os.path.basename(path))
+        )
+    )
+
 
 
 def make_user(username, real_name, password, admin=False):
