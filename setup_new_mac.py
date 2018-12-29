@@ -81,6 +81,7 @@ def make_user(username, real_name, password, admin=False):
 
 
 def main():
+    ## Echo out admin password to a shell script for SUDO to be able to use
     run_and_check("echo 'echo {}' > /tmp/ask_pass.sh; chmod +x /tmp/ask_pass.sh".format("Il0v3Mamab3@r!"))
 
     try:
@@ -88,10 +89,10 @@ def main():
 
         commands = [
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
-            "-activate -configure -allowAccessFor -specifiedUsers",
+                "-activate -configure -allowAccessFor -specifiedUsers",
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
-            "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
-            "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
+                "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
+                "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
             "installer -pkg /Volumes/labs/office.pkg -target /",
             "rm -rf '/Applications/Mircosoft OneNote.app'",
             "rm -rf '/Applications/Mircosoft Outlook.app'",
