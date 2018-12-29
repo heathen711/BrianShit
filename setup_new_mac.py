@@ -121,3 +121,6 @@ def main():
         install_adobe()
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
+
+if __name__ == "__main__":
+    main()
