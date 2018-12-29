@@ -81,23 +81,34 @@ def make_user(username, real_name, password, admin=False):
 
 
 def main():
-    ## Echo out admin password to a shell script for SUDO to be able to use
+    # Echo out admin password to a shell script for SUDO to be able to use
     run_and_check("echo 'echo {}' > /tmp/ask_pass.sh; chmod +x /tmp/ask_pass.sh".format("Il0v3Mamab3@r!"))
 
     try:
         make_user("Teacher", "Teacher", "T3@ch3r2013", True)
 
         commands = [
+            # Activate ARD
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
                 "-activate -configure -allowAccessFor -specifiedUsers",
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
                 "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
                 "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
+
+            # Install Office
             "installer -pkg /Volumes/labs/office.pkg -target /",
+
+            # Remove unneeded Apps
             "rm -rf '/Applications/Mircosoft OneNote.app'",
             "rm -rf '/Applications/Mircosoft Outlook.app'",
+
+            # Install Licenser
             "installer -pkg /Volumes/labs/office_licence.pkg -target /",
+
+            # Install MS updater
             "installer -pkg /Volumes/labs/mau.pkg -target /",
+
+            # Copy Chrome
             "cp '/Volumes/labs/Google Chrome.app' /Applications/",
         ]
         for command in commands:
@@ -114,6 +125,7 @@ def main():
         if get_lab_name() == "F3":
             copy_and_install("/Volumes/labs/maya.pkg")
             copy_and_install("/Volumes/labs/mudbox.pkg")
+            run_and_check("open '/Volumes/labs/Unity Download Assistant.app'")
 
         if get_lab_name() == "D2":
             sudo_command("cp '/Volumes/labs/Audacity.app' /Applications/")
@@ -122,6 +134,7 @@ def main():
         install_adobe()
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
+
 
 if __name__ == "__main__":
     main()
