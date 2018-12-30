@@ -151,6 +151,8 @@ def main():
         install_adobe()
 
         sudo_command("touch /var/db/.BrianSetupDone")
+
+        sudo_command("softwareupdate --install -a -R")
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
 
