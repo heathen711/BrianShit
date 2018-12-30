@@ -152,7 +152,7 @@ def main():
 
         sudo_command("touch /var/db/.BrianSetupDone")
 
-        sudo_command("softwareupdate --install -a -R")
+        sudo_command("softwareupdate --install -a")
     finally:
         run_and_check("rm /tmp/ask_pass.sh")
 
