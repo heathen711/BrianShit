@@ -6,6 +6,7 @@ import pprint
 import os
 import random
 import shlex
+import pipes
 import subprocess
 
 
@@ -74,7 +75,7 @@ def make_user(username, real_name, password, admin=False):
                 password=password,
                 gid=gid,
                 uid=uid,
-                real_name=shlex.quote(real_name)
+                real_name=pipes.quote(real_name)
             )
         )
 
