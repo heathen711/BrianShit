@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import argparse
+import inspect
+import pprint
 import os
 import random
 import shlex
@@ -154,7 +156,9 @@ def main():
 
         sudo_command("softwareupdate --install -a")
     finally:
-        run_and_check("rm /tmp/ask_pass.sh")
+        pprint.pprint(inspect.trace())
+        if os.path.exists("/tmp/ask_pass.sh"):
+            os.remove("/tmp/ask_pass.sh")
 
 
 if __name__ == "__main__":
