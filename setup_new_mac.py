@@ -97,7 +97,7 @@ def main():
     os.chmod(askpass_path, st.st_mode | stat.S_IEXEC)
 
     try:
-        make_user("Teacher", "Teacher", "T3@ch3r2013", True)
+        make_user("teacher", "Teacher", "T3@ch3r2013", True)
 
         commands = [
             # Activate ARD
@@ -109,10 +109,6 @@ def main():
 
             # Install Office
             "installer -pkg /Volumes/Labs/Office.pkg -target /",
-
-            # Remove unneeded Apps
-            "rm -Rf '/Applications/Mircosoft OneNote.app'",
-            "rm -Rf '/Applications/Mircosoft Outlook.app'",
 
             # Install Licenser
             "installer -pkg /Volumes/Labs/Office_Serializer.pkg -target /",
