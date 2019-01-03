@@ -11,7 +11,7 @@ import subprocess
 
 def run_and_check(command):
     print "Executing: {}".format(command)
-    result = subprocess.check_output(command, shell=True)
+    result = subprocess.check_output("/bin/sh -c {}".format(pipes.quote(command)), shell=True)
     print "Output:\n{}".format(result)
     return result.strip()
 
