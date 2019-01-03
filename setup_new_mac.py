@@ -106,6 +106,9 @@ def main():
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
                 "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
                 "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users administrator,teacher",
+            
+            #Install Wacom
+            "installer -pkg /Volumes/Labs/Wacom.pkg -target /",
 
             # Install Office
             "installer -pkg /Volumes/Labs/Office.pkg -target /",
@@ -155,6 +158,7 @@ def main():
         if get_lab_name() == "D2":
             sudo_command("cp -Rfv '/Volumes/Labs/Audacity.app' /Applications/")
             sudo_command("cp -Rfv '/Volumes/Labs/MuseScore 3.app' /Applications/")
+            copy_and_install("/Volumes/Labs/Lame.pkg")
 
         install_adobe()
 
