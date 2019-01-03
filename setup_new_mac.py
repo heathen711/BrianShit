@@ -31,7 +31,7 @@ def get_lab_name():
 
 
 def copy_and_install(path):
-    sudo_command("cp {path} /tmp/".format(path=path))
+    sudo_command("cp -Rfv {path} /tmp/".format(path=path))
     sudo_command(
         "installer -pkg {} -target /".format(
             os.path.join("/tmp", os.path.basename(path))
@@ -129,10 +129,10 @@ def main():
         if get_lab_name() == "F1":
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp '/Volumes/Labs/Firefox.app' /Applications/",
+                "cp -Rfv '/Volumes/Labs/Firefox.app' /Applications/",
 
                 # Copy over all user icons
-                "cp /Volumes/Labs/F1_icons /Library/User Pictures/",
+                "cp -Rfv /Volumes/Labs/F1_icons /Library/User Pictures/",
 
                 # Remove JPEGPhoto and Picture args then set to new icon
                 "dscl . -delete /Users/admin JPEGPhoto",
