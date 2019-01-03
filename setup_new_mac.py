@@ -14,6 +14,7 @@ def run_and_check(command, env={}):
     cur_env = os.environ.copy()
     cur_env.update(env)
     print "Executing: {}".format(command)
+    print "Env: {}".format(cur_env)
     result = subprocess.check_output(shlex.split(command), env=cur_env)
     print "Output:\n{}".format(result)
     return result.strip()
