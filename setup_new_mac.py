@@ -118,7 +118,7 @@ def main():
             "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate -i",
 
             # Copy Chrome
-            "cp '/Volumes/Labs/Google Chrome.app' /Applications/",
+            "cp -Rv '/Volumes/Labs/Google Chrome.app' /Applications/",
         ]
         for command in commands:
             sudo_command(command)
@@ -126,10 +126,10 @@ def main():
         if get_lab_name() == "F1":
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp '/Volumes/Labs/Firefox.app' /Applications/",
+                "cp -Rv '/Volumes/Labs/Firefox.app' /Applications/",
 
                 # Copy over all user icons
-                "cp /Volumes/Labs/F1_icons /Library/User Pictures/",
+                "cp -Rv /Volumes/Labs/F1_icons /Library/User Pictures/",
 
                 # Remove JPEGPhoto and Picture args then set to new icon
                 "dscl . -delete /Users/admin JPEGPhoto",
