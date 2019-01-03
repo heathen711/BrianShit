@@ -111,8 +111,8 @@ def main():
             "installer -pkg /Volumes/Labs/Office.pkg -target /",
 
             # Remove unneeded Apps
-            "rm -Rdf '/Applications/Mircosoft OneNote.app'",
-            "rm -Rdf '/Applications/Mircosoft Outlook.app'",
+            "rm -Rf '/Applications/Mircosoft OneNote.app'",
+            "rm -Rf '/Applications/Mircosoft Outlook.app'",
 
             # Install Licenser
             "installer -pkg /Volumes/Labs/Office_Serializer.pkg -target /",
