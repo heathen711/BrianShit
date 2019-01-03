@@ -6,18 +6,21 @@ import pprint
 import os
 import random
 import pipes
+import shlex
 import subprocess
 
 
-def run_and_check(command):
+def run_and_check(command, env={}):
+    cur_env = os.environ.copy()
+    cur_env.update(env)
     print "Executing: {}".format(command)
-    result = subprocess.check_output("/bin/sh -c {}".format(pipes.quote(command)), shell=True)
+    result = subprocess.check_output(shlex.split(command), env=cur_env)
     print "Output:\n{}".format(result)
     return result.strip()
 
 
 def sudo_command(command):
-    return run_and_check("SUDO_ASKPASS=/tmp/ask_pass.sh; sudo -A {}".format(command))
+    return run_and_check("sudo -A {}".format(command), {"SUDO_ASKPASS": "/tmp/ask_pass.sh"})
 
 
 def get_lab_name():
