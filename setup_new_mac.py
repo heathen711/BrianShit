@@ -119,7 +119,7 @@ def main():
 
             # Install MS updater
             "installer -pkg /Volumes/Labs/MAU.pkg -target /",
-            "'/Library/Application Support/Mircosoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate' -i",
+            "/Library/Application\ Support/Mircosoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate -i",
 
             # Copy Chrome
             "cp '/Volumes/Labs/Google Chrome.app' /Applications/",
