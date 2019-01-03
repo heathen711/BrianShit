@@ -5,14 +5,13 @@ import inspect
 import pprint
 import os
 import random
-import shlex
 import pipes
 import subprocess
 
 
 def run_and_check(command):
     print "Executing: {}".format(command)
-    result = subprocess.check_output(shlex.split(command))
+    result = subprocess.check_output(command, shell=True)
     print "Output:\n{}".format(result)
     return result.strip()
 
