@@ -8,6 +8,7 @@ import random
 import pipes
 import shlex
 import subprocess
+import stat
 
 
 def run_and_check(command, env={}):
@@ -87,8 +88,14 @@ def make_user(username, real_name, password, admin=False):
 
 
 def main():
-    # Echo out admin password to a shell script for SUDO to be able to use
-    run_and_check("echo 'echo {}' > /tmp/ask_pass.sh; chmod +x /tmp/ask_pass.sh".format("Il0v3Mamab3@r!"))
+    admin_password = "Il0v3Mamab3@r!"
+    askpass_path = "/tmp/ask_pass.sh"
+    with open(askpass_path, "w") as writer:
+        writer.write("#!/bin/sh\n")
+        writer.write("echo \"{}\"".format(admin_password))
+    st = os.stat(askpass_path)
+    os.chmod(askpass_path, st.st_mode | stat.S_IEXEC)
+    run_and_check("/tmp/ask_pass.sh")
 
     try:
         make_user("Teacher", "Teacher", "T3@ch3r2013", True)
