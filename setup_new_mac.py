@@ -105,24 +105,24 @@ def main():
                 "-activate -configure -allowAccessFor -specifiedUsers",
             "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart "
                 "-activate -configure -access -on -privs -ControlObserve -TextMessages -DeleteFiles "
-                "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users admin,teacher",
+                "-OpenQuitApps -GenerateReports -RestartShutDown -SendFiles -ChangeSettings -users administrator,teacher",
 
             # Install Office
-            "installer -pkg /Volumes/labs/office.pkg -target /",
+            "installer -pkg /Volumes/Labs/Office.pkg -target /",
 
             # Remove unneeded Apps
             "rm -rf '/Applications/Mircosoft OneNote.app'",
             "rm -rf '/Applications/Mircosoft Outlook.app'",
 
             # Install Licenser
-            "installer -pkg /Volumes/labs/office_licence.pkg -target /",
+            "installer -pkg /Volumes/Labs/Office_Serializer.pkg -target /",
 
             # Install MS updater
-            "installer -pkg /Volumes/labs/mau.pkg -target /",
+            "installer -pkg /Volumes/Labs/MAU.pkg -target /",
             "'/Library/Application Support/Mircosoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate' -i",
 
             # Copy Chrome
-            "cp '/Volumes/labs/Google Chrome.app' /Applications/",
+            "cp '/Volumes/Labs/Google Chrome.app' /Applications/",
         ]
         for command in commands:
             sudo_command(command)
@@ -130,10 +130,10 @@ def main():
         if get_lab_name() == "F1":
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp '/Volumes/labs/Firefox.app' /Applications/",
+                "cp '/Volumes/Labs/Firefox.app' /Applications/",
 
                 # Copy over all user icons
-                "cp /Volumes/labs/F1_icons /Library/User Pictures/",
+                "cp /Volumes/Labs/F1_icons /Library/User Pictures/",
 
                 # Remove JPEGPhoto and Picture args then set to new icon
                 "dscl . -delete /Users/admin JPEGPhoto",
@@ -152,13 +152,13 @@ def main():
                 sudo_command(command)
 
         if get_lab_name() == "F3":
-            copy_and_install("/Volumes/labs/maya.pkg")
-            copy_and_install("/Volumes/labs/mudbox.pkg")
-            run_and_check("open '/Volumes/labs/Unity Download Assistant.app'")
+            copy_and_install("/Volumes/Labs/maya.pkg")
+            copy_and_install("/Volumes/Labs/mudbox.pkg")
+            run_and_check("open '/Volumes/Labs/Unity Download Assistant.app'")
 
         if get_lab_name() == "D2":
-            sudo_command("cp '/Volumes/labs/Audacity.app' /Applications/")
-            sudo_command("cp '/Volumes/labs/MuseScore 3.app' /Applications/")
+            sudo_command("cp '/Volumes/Labs/Audacity.app' /Applications/")
+            sudo_command("cp '/Volumes/Labs/MuseScore 3.app' /Applications/")
 
         install_adobe()
 
