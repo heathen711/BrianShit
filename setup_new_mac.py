@@ -95,7 +95,6 @@ def main():
         writer.write("echo \"{}\"".format(admin_password))
     st = os.stat(askpass_path)
     os.chmod(askpass_path, st.st_mode | stat.S_IEXEC)
-    run_and_check("/tmp/ask_pass.sh")
 
     try:
         make_user("Teacher", "Teacher", "T3@ch3r2013", True)
