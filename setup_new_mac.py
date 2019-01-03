@@ -115,10 +115,10 @@ def main():
 
             # Install MS updater
             "installer -pkg /Volumes/Labs/MAU.pkg -target /",
-            "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate -i",
+            "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install",
 
             # Copy Chrome
-            "cp -Rv '/Volumes/Labs/Google Chrome.app' /Applications/",
+            "cp -Rfv /Volumes/Labs/Google\ Chrome.app /Applications/",
         ]
         for command in commands:
             sudo_command(command)
@@ -126,10 +126,10 @@ def main():
         if get_lab_name() == "F1":
             make_user("tartan", "tartan", "beyonce*")
             commands = [
-                "cp -Rv '/Volumes/Labs/Firefox.app' /Applications/",
+                "cp '/Volumes/Labs/Firefox.app' /Applications/",
 
                 # Copy over all user icons
-                "cp -Rv /Volumes/Labs/F1_icons /Library/User Pictures/",
+                "cp /Volumes/Labs/F1_icons /Library/User Pictures/",
 
                 # Remove JPEGPhoto and Picture args then set to new icon
                 "dscl . -delete /Users/admin JPEGPhoto",
@@ -153,8 +153,8 @@ def main():
             run_and_check("open '/Volumes/Labs/Unity Download Assistant.app'")
 
         if get_lab_name() == "D2":
-            sudo_command("cp '/Volumes/Labs/Audacity.app' /Applications/")
-            sudo_command("cp '/Volumes/Labs/MuseScore 3.app' /Applications/")
+            sudo_command("cp -Rfv '/Volumes/Labs/Audacity.app' /Applications/")
+            sudo_command("cp -Rfv '/Volumes/Labs/MuseScore 3.app' /Applications/")
 
         install_adobe()
 
