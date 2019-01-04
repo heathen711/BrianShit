@@ -15,9 +15,9 @@ def run_and_check(command, env={}):
     cur_env = os.environ.copy()
     cur_env.update(env)
     print "Executing: {}".format(command)
-    print "Env: {}".format(cur_env)
+    # print "Env: {}".format(cur_env)
     result = subprocess.check_output(shlex.split(command), env=cur_env)
-    print "Output:\n{}".format(result)
+    print "Output:{}".format(result)
     return result.strip()
 
 
@@ -45,7 +45,7 @@ def install_adobe():
     if lab_name in ["D2"]:
         return
 
-    path = "/Volumes/labs/{lab_name}/".format(lab_name=lab_name)
+    path = "/Volumes/Labs/{lab_name}/".format(lab_name=lab_name)
     sudo_command("cp {path} /tmp/".format(path=path))
 
     local_pkg = os.path.join("/tmp", "build/{lab_name}_install.pkg".format(lab_name))
@@ -58,7 +58,7 @@ def install_adobe():
 
 
 def make_user(username, real_name, password, admin=False):
-    uid = random.randint(1010, 3000)
+    uid = random.randint(1010, 1599)
     gid = 1000
     if admin:
         gid = 20
@@ -70,7 +70,7 @@ def make_user(username, real_name, password, admin=False):
         "dscl . -create /Users/{username} UniqueID {uid}",
         "dscl . -create /Users/{username} PrimaryGroupID {gid}",
         "dscl . -create /Users/{username} NFSHomeDirectory /Local/Users/{username}",
-        "dscl . -passwd /Users/{username} {password}",
+        "dscl . -passwd /Users/{username} {password} {password}",
     ]
     for command in commands:
         sudo_command(
@@ -117,8 +117,12 @@ def main():
             "installer -pkg /Volumes/Labs/Office_Serializer.pkg -target /",
 
             # Install MS updater
-            "installer -pkg /Volumes/Labs/MAU.pkg -target /",
-            "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install",
+            #"installer -pkg /Volumes/Labs/MAU.pkg -target /",
+            # "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/msupdate --install",
+	      "/Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/MacOS/Microsoft\ AutoUpdate",
+
+	    #Cleanup Chrome
+	    "rm -dfRv /Applications/Google Chrome.app",
 
             # Copy Chrome
             "cp -Rfv /Volumes/Labs/Google\ Chrome.app /Applications/",
@@ -151,8 +155,10 @@ def main():
                 sudo_command(command)
 
         if get_lab_name() == "F3":
-            copy_and_install("/Volumes/Labs/maya.pkg")
-            copy_and_install("/Volumes/Labs/mudbox.pkg")
+            # copy_and_install("/Volumes/Labs/maya.pkg")
+            # copy_and_install("/Volumes/Labs/mudbox.pkg")
+	    "cp -Rfv '/Volumes/Labs/Install Maya 2018.app' /Desktop/"
+	    "cp -Rfv '/Volumes/Labs/Install Mudbox 2018.app' /Desktop/"
             run_and_check("open '/Volumes/Labs/Unity Download Assistant.app'")
 
         if get_lab_name() == "D2":
@@ -160,7 +166,7 @@ def main():
             sudo_command("cp -Rfv '/Volumes/Labs/MuseScore 3.app' /Applications/")
             copy_and_install("/Volumes/Labs/Lame.pkg")
 
-        install_adobe()
+        # install_adobe()
 
         sudo_command("touch /var/db/.BrianSetupDone")
 
