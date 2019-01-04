@@ -125,7 +125,7 @@ def main():
 	    "rm -dfRv /Applications/Google Chrome.app",
 
             # Copy Chrome
-            "cp -Rfv /Volumes/Labs/Google\ Chrome.app /Applications/",
+            "cp -Rf /Volumes/Labs/Google\ Chrome.app /Applications/",
         ]
         for command in commands:
             sudo_command(command)
